@@ -1,0 +1,142 @@
+Home Input Field
+<h3 className="text">Drive By Note</h3>
+        <div className="input-wrapper">
+          <input
+            className="input-field"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          ></input>
+          <button className="btn-add">
+            <p className="btn-text" onClick={() => handleSetNoteList(note)}>
+              Add
+            </p>
+          </button>
+        </div>
+
+
+
+Note Card
+<div className="card-wrapper">
+      <h4 className="card-text">{textInput}</h4>
+      <button className="btn-card">
+        <p className="btn-text">Delete</p>
+      </button>
+    </div>
+
+
+Input Field MUI
+<TextField
+            sx={{
+              input: { color: "white" },
+              label: { color: "white" },
+              borderBottom: 1,
+              borderColor: "white",
+              minWidth: 300,
+            }}
+            InputProps={{ disableUnderline: true }}
+            color="primary"
+            label="Add Title..."
+            InputLabelProps={{ style: { color: "white" } }}
+            variant="standard"
+            value={title}
+            onChange={(e) => setNoteTitle(e.target.value)}
+          ></TextField>
+          <TextField
+            sx={{
+              input: { color: "white" },
+              label: { color: "white" },
+              borderBottom: 1,
+              borderColor: "white",
+              minWidth: 300,
+            }}
+            InputProps={{ disableUnderline: true }}
+            color="primary"
+            label="Add Note..."
+            InputLabelProps={{ style: { color: "white" } }}
+            variant="standard"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+          ></TextField>
+          <Typography color="white" alignSelf={"start"}>
+            Priority
+          </Typography>
+          <Slider
+            sx={{ color: "white" }}
+            aria-label="Priority"
+            defaultValue={0}
+            getAriaValueText={valuetext}
+            valueLabelDisplay="auto"
+            step={50}
+            marks
+            min={0}
+            max={100}
+            valueLabelFormat={(e) => handlePrioritySlider(e)}
+          />
+          <Button
+            variant="outlined"
+            sx={{ color: "white", borderColor: "white", borderRadius: 0 }}
+            onClick={() => handleSetNoteList(note, title, priority)}
+          >
+            <AddIcon></AddIcon>
+          </Button>
+
+
+
+
+
+
+
+
+input menu related funtions
+
+
+
+  const clearBoard = () => {
+    localStorage.clear();
+    handleClose();
+  };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+
+
+
+Input btn group and menu
+
+<ButtonGroup variant="outlined">
+          {/**Add btn */}
+          <Button
+            variant="outlined"
+            sx={{
+              color: "white",
+              borderColor: "white",
+              borderRadius: 0,
+              borderWidth: 1,
+            }}
+            onClick={() => handleSetNoteList(note, title, priority)}
+          >
+            <AddIcon></AddIcon>
+          </Button>
+          {/**More options btn */}
+          <Button
+            variant="outlined"
+            onClick={handleClick}
+            sx={{ color: "white", borderRadius: 0, borderColor: "white" }}
+          >
+            <MoreVertIcon></MoreVertIcon>
+          </Button>
+        </ButtonGroup>
+
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <MenuItem onClick={handleClose}>Toggle Theme</MenuItem>
+          <MenuItem onClick={handleClose}>Toggle View</MenuItem>
+          <MenuItem onClick={clearBoard}>Clear Board</MenuItem>
+        </Menu>
